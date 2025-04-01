@@ -1,0 +1,146 @@
+Ques 1: 
+Two Sum: Given an array of integers, return indices of the two 
+numbers such that they add up to a specific target. 
+
+Code:
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = i + 1; j < nums.size(); j++) {
+                if (nums[i] + nums[j] == target) {
+                    return {i, j};
+                }
+            }
+        }
+        return {};
+    }
+};
+
+Output:
+Input: nums = [2, 7, 11, 15], target = 9 
+Output: [0, 1] 
+Input: nums = [3, 2, 4], target = 6 
+Output: [1, 2]
+
+Ques 2:  
+Longest Substring Without Repeating Characters: Given a 
+string s, find the length of the longest substring that does not 
+contain any repeating characters.
+
+Code:
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+       int j = 0;
+       int i = 0;
+       unordered_map<int,int>mp;
+       if(s.size()==0){
+        return s.size();
+       }
+       int ans=1;
+
+
+
+
+       while(i<s.size()){
+           if(mp[s[i]]==1){
+           while(mp[s[i]]==1){
+            mp[s[j]]--;
+            j++;
+           }
+           }
+           mp[s[i]]++;
+           ans = max(ans,i-j+1);
+           i++; 
+
+       }
+       return ans;
+    }
+};
+
+Output:
+Input: s = "abcabcbb" 
+Output: 3 
+Input: s = "bbbbb" 
+Output: 1
+
+Ques 3:
+Palindrome Number: Determine whether an integer is a 
+palindrome. 
+
+Code:
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0 || (x % 10 == 0 && x != 0)) {
+            return false;
+        }
+        int revertedNumber = 0;
+        while (x > revertedNumber) {
+            revertedNumber = revertedNumber * 10 + x % 10;
+            x /= 10;
+        }
+        return x == revertedNumber || x == revertedNumber / 10;
+    }
+};
+
+Output:
+Input: x = 121 
+Output: true 
+Input: x = -121 
+Output: false 
+
+Ques 4:
+ Detect a Cycle in a Linked List: Given the head of a linked 
+list, determine whether the linked list contains a cycle. A cycle 
+occurs if a node's next pointer points to a previous node in the 
+list.
+
+Code:
+class Solution {
+ public:
+  bool hasCycle(ListNode* head) {
+    ListNode* slow = head;
+    ListNode* fast = head;
+    while (fast != nullptr && fast->next != nullptr) {
+      slow = slow->next;
+      fast = fast->next->next;
+      if (slow == fast)
+        return true;
+    }
+    return false;
+  }
+};
+
+Output:
+Input: Linked list: [3, 2, 0, -4] with the tail node (-4) pointing to the node with value 2. 
+Output: true 
+Input: Linked list: [1, 2] with no cycle (each node points to null at the end). 
+Output: false
+
+Ques 5:
+ Validate Binary Search Tree: Given the root of a binary tree, 
+determine if it is a valid binary search tree (BST).
+
+Code:
+class Solution {
+public:
+    bool isValidBST(TreeNode* root,long minval = LONG_MIN,long maxval = LONG_MAX) {
+        if(root == NULL){
+            return true;
+        }
+
+            if (root->val <= minval || root->val >= maxval) return false;
+
+       return isValidBST(root->left,minval,root->val) && isValidBST(root->right,root->val,maxval);
+            }
+};
+
+Output:
+Example 1: 
+Input: root = [2,1,3] 
+Output: true 
+Example 2: 
+Input: root = [5,1,4,null,null,3,6] 
+Output: false
